@@ -4,7 +4,7 @@
 #define MENU_SIZE 5
 #define STDIN_EMPTY feof(stdin)
 
-const char *options[MENU_SIZE] = {"Print menu", "Exit", "my_strcmp", "my_strncmp", "my_strchr"};
+const char *options[MENU_SIZE] = {"Exit", "Print menu", "my_strcmp", "my_strncmp", "my_strchr"};
 
 void print_welcome();
 void print_menu();
