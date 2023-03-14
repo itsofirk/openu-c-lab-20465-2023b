@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include "data.h"
 #include "my_string.h"
-#define ARR_SIZE(x)  (sizeof(x) / sizeof((x)[0]))
+#define MENU_SIZE 5
+#define STDIN_EMPTY feof(stdin)
 
-const char *func_names[] = {"my_strcmp", "my_strncmp", "my_strchr"};
+const char *options[MENU_SIZE] = {"Print menu", "my_strcmp", "my_strncmp", "my_strchr", "Exit"};
 
 void print_welcome();
 void print_menu();
@@ -20,11 +21,12 @@ void demonstrate_strchr();
 int main() {
 	int selection;
 	print_welcome();
+	print_menu();
 	selection = get_selection();
-	execute_selection(selection);
-	demonstrate_strcmp();
-	demonstrate_strncmp();
-	demonstrate_strchr();
+	while(selection >= 0){
+		execute_selection(selection);
+		selection = get_selection();
+	}
 	printf("\n");
 	return 0;
 }
@@ -32,20 +34,19 @@ int main() {
 void print_welcome(){
 	printf("Welcome!\n");
 	printf("This program deomstrates the behavior of 3 string functions.\n\n");
-	print_menu();
 }
 
 void print_menu(){
 	int i;
-
-	for(i=0; i<3; i++)
-		printf("%d) %s\n", i+1, func_names[i]);
+	for(i=0; i<MENU_SIZE; i++)
+		printf("%d) %s\n", i, options[i]);
 }
 
 int get_selection(){
 	int i;
-	printf("Please choose one of the above options, or type in 0 for the menu:\n");
-	scanf("%d", &i); /* validation is being done before execution*/
+	printf("What would you like to do (Enter 0 for menu): ");
+	scanf("%d", &i);
+	printf("\n");
 	return i;
 }
 
@@ -63,6 +64,8 @@ void execute_selection(int stn){
 		case 3:
 			demonstrate_strchr();
 			break;
+		case 4:
+			break;
 		default:
 			printf("Your selection seems to be wrong.\n");
 			break;
@@ -70,7 +73,7 @@ void execute_selection(int stn){
 }
 
 void read_string(char s[]){
-	if(!feof(stdin)){
+	if(!STDIN_EMPTY){
 		printf("Please enter a word (maximum %d characters): ", MAX_STR);
 	}
 	scanf("%s", s);
