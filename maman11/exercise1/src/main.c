@@ -44,9 +44,8 @@ void print_menu(){
 
 int get_selection(){
 	int stn;
-	printf("What would you like to do next (0 for menu): ");
+	printf("\nWhat would you like to do next (0 for menu): ");
 	scanf("%d", &stn);
-	printf("\n");
 	return stn;
 }
 
