@@ -3,20 +3,25 @@
 #include "my_string.h"
 #define ARR_SIZE(x)  (sizeof(x) / sizeof((x)[0]))
 
+const char *func_names[] = {"my_strcmp", "my_strncmp", "my_strchr"};
+
 void print_welcome();
 void print_menu();
 void read_string(char s[]);
 char get_char();
 int get_int();
 
+void execute_selection();
 void demonstrate_strcmp();
 void demonstrate_strncmp();
 void demonstrate_strchr();
-const char *func_names[] = {"my_strcmp", "my_strncmp", "my_strchr"};
 
 /* This program demonstrates three string functions: strcmp, strncmp, strchr*/
 int main() {
+	int selection;
 	print_welcome();
+	selection = get_selection();
+	execute_selection(selection);
 	demonstrate_strcmp();
 	demonstrate_strncmp();
 	demonstrate_strchr();
@@ -26,14 +31,42 @@ int main() {
 
 void print_welcome(){
 	printf("Welcome!\n");
-	printf("This program deomstrates the behavior of 3 string functions.\n");
+	printf("This program deomstrates the behavior of 3 string functions.\n\n");
 	print_menu();
 }
 
 void print_menu(){
 	int i;
-	for(i=0; i<ARR_SIZE(func_names); i++)
+
+	for(i=0; i<3; i++)
 		printf("%d) %s\n", i+1, func_names[i]);
+}
+
+int get_selection(){
+	int i;
+	printf("Please choose one of the above options, or type in 0 for the menu:\n");
+	scanf("%d", &i); /* validation is being done before execution*/
+	return i;
+}
+
+void execute_selection(int stn){
+	switch (stn){
+		case 0:
+			print_menu();
+			break;
+		case 1:
+			demonstrate_strcmp();
+			break;
+		case 2:
+			demonstrate_strncmp();
+			break;
+		case 3:
+			demonstrate_strchr();
+			break;
+		default:
+			printf("Your selection seems to be wrong.\n");
+			break;
+	}
 }
 
 void read_string(char s[]){
