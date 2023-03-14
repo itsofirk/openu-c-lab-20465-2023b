@@ -52,9 +52,6 @@ int get_selection(){
 
 void execute_selection(int stn){
 	switch (stn-1){
-		case 0:
-			printf("Goodbye!\n");
-			break;
 		case 1:
 			print_menu();
 			break;
