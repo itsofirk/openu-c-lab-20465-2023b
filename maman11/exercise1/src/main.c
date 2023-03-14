@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "data.h"
 #include "my_string.h"
+#define ARR_SIZE(x)  (sizeof(x) / sizeof((x)[0]))
 
 void print_welcome();
+void print_menu();
 void read_string(char s[]);
 char get_char();
 int get_int();
@@ -10,6 +12,7 @@ int get_int();
 void demonstrate_strcmp();
 void demonstrate_strncmp();
 void demonstrate_strchr();
+const char *func_names[] = {"my_strcmp", "my_strncmp", "my_strchr"};
 
 /* This program demonstrates three string functions: strcmp, strncmp, strchr*/
 int main() {
@@ -23,7 +26,14 @@ int main() {
 
 void print_welcome(){
 	printf("Welcome!\n");
-	printf("We will go over a few string functions.\n");
+	printf("This program deomstrates the behavior of 3 string functions.\n");
+	print_menu();
+}
+
+void print_menu(){
+	int i;
+	for(i=0; i<ARR_SIZE(func_names); i++)
+		printf("%d) %s\n", i+1, func_names[i]);
 }
 
 void read_string(char s[]){
