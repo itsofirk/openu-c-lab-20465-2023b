@@ -15,11 +15,9 @@ int main()
 }
 
 void print_binary(unsigned long num) {
-  // Determine the number of bits in an unsigned long
-  int num_bits = sizeof(unsigned long) * 8;
-  // Loop through each bit of the number and print it as 0 or 1
-  for (int i = num_bits - 1; i >= 0; i--) {
-    printf("%ld", (num >> i) & 1);
+  /* Loop through each bit of the number and print it as 0 or 1*/
+  for (int i = LONG_SIZE - 1; i >= 0; i--) {
+    printf("%d", (num >> i) & 1);
   }
   printf("\n");
 }
