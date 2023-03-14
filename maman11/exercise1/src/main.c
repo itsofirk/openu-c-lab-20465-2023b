@@ -4,7 +4,7 @@
 #define MENU_SIZE 5
 #define STDIN_EMPTY feof(stdin)
 
-const char *options[MENU_SIZE] = {"Print menu", "my_strcmp", "my_strncmp", "my_strchr", "Exit"};
+const char *options[MENU_SIZE] = {"Exit", "Print menu", "my_strcmp", "my_strncmp", "my_strchr"};
 
 void print_welcome();
 void print_menu();
@@ -39,7 +39,7 @@ void print_welcome(){
 void print_menu(){
 	int i;
 	for(i=0; i<MENU_SIZE; i++)
-		printf("%d) %s\n", i, options[i]);
+		printf("%d) %s\n", i-1, options[i]);
 }
 
 int get_selection(){
@@ -52,6 +52,9 @@ int get_selection(){
 
 void execute_selection(int stn){
 	switch (stn){
+		case -1:
+			printf("Goodbye!");
+			break;
 		case 0:
 			print_menu();
 			break;
@@ -63,8 +66,6 @@ void execute_selection(int stn){
 			break;
 		case 3:
 			demonstrate_strchr();
-			break;
-		case 4:
 			break;
 		default:
 			printf("Your selection seems to be wrong.\n");
