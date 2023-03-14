@@ -10,7 +10,7 @@ void print_menu();
 void read_string(char s[]);
 char get_char();
 int get_int();
-
+int get_selection();
 void execute_selection();
 void demonstrate_strcmp();
 void demonstrate_strncmp();
