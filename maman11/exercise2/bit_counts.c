@@ -15,9 +15,10 @@ int main()
 }
 
 void print_binary(unsigned long num) {
+  int i;
   /* Loop through each bit of the number and print it as 0 or 1*/
-  for (int i = LONG_SIZE - 1; i >= 0; i--) {
-    printf("%d", (num >> i) & 1);
+  for (i = LONG_SIZE - 1; i >= 0; i--) {
+    printf("%ld", (num >> i) & 1);
   }
   printf("\n");
 }
@@ -25,7 +26,7 @@ void print_binary(unsigned long num) {
 int count_bits(unsigned long num){
     int i, sum;
     sum = 0;
-    for(i=LONG_SIZE-1; i>=0; i-=2){
+    for(i = LONG_SIZE - 1; i >= 0; i -= 2){
         if((num >> i) & 1)
             sum++;
     }
