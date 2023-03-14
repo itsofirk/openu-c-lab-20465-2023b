@@ -23,7 +23,7 @@ int main() {
 	print_welcome();
 	print_menu();
 	selection = get_selection();
-	while(selection >= -1){
+	while(1){
 		execute_selection(selection);
 		selection = get_selection();
 	}
@@ -53,7 +53,8 @@ int get_selection(){
 void execute_selection(int stn){
 	switch (stn){
 		case -1:
-			printf("Goodbye!");
+			printf("Goodbye!\n");
+			exit(0);
 			break;
 		case 0:
 			print_menu();
