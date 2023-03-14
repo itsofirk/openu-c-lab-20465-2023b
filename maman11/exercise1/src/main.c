@@ -53,10 +53,10 @@ int get_selection(){
 void execute_selection(int stn){
 	switch (stn-1){
 		case 0:
-			print_menu();
+			printf("Goodbye!\n");
 			break;
 		case 1:
-			printf("Goodbye!\n");
+			print_menu();
 			break;
 		case 2:
 			demonstrate_strcmp();
