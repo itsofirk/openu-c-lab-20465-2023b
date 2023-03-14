@@ -1,33 +1,76 @@
 #include <stdio.h>
 #include "data.h"
 #include "my_string.h"
+#define MENU_SIZE 5
+#define STDIN_EMPTY feof(stdin)
+
+const char *options[MENU_SIZE] = {"Exit", "Print menu", "my_strcmp", "my_strncmp", "my_strchr"};
 
 void print_welcome();
+void print_menu();
 void read_string(char s[]);
 char get_char();
 int get_int();
-
+int get_selection();
+void execute_selection();
 void demonstrate_strcmp();
 void demonstrate_strncmp();
 void demonstrate_strchr();
 
 /* This program demonstrates three string functions: strcmp, strncmp, strchr*/
 int main() {
+	int selection;
 	print_welcome();
-	demonstrate_strcmp();
-	demonstrate_strncmp();
-	demonstrate_strchr();
+	print_menu();
+	selection = get_selection();
+	while(selection-1){
+		execute_selection(selection);
+		selection = get_selection();
+	}
 	printf("\n");
 	return 0;
 }
 
 void print_welcome(){
 	printf("Welcome!\n");
-	printf("We will go over a few string functions.\n");
+	printf("This program deomstrates the behavior of 3 string functions.\n\n");
+}
+
+void print_menu(){
+	int i;
+	for(i=0; i<MENU_SIZE; i++)
+		printf("%4d) %s\n", i+1, options[i]);
+}
+
+int get_selection(){
+	int stn;
+	printf("\nWhat would you like to do next (0 for menu): ");
+	scanf("%d", &stn);
+	return stn;
+}
+
+void execute_selection(int stn){
+	switch (stn-1){
+		case 1:
+			print_menu();
+			break;
+		case 2:
+			demonstrate_strcmp();
+			break;
+		case 3:
+			demonstrate_strncmp();
+			break;
+		case 4:
+			demonstrate_strchr();
+			break;
+		default:
+			printf("Your selection seems to be wrong.\n");
+			break;
+	}
 }
 
 void read_string(char s[]){
-	if(!feof(stdin)){
+	if(!STDIN_EMPTY){
 		printf("Please enter a word (maximum %d characters): ", MAX_STR);
 	}
 	scanf("%s", s);
