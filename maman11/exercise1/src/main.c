@@ -23,7 +23,7 @@ int main() {
 	print_welcome();
 	print_menu();
 	selection = get_selection();
-	while(selection >= 0){
+	while(selection >= -1){
 		execute_selection(selection);
 		selection = get_selection();
 	}
@@ -39,15 +39,15 @@ void print_welcome(){
 void print_menu(){
 	int i;
 	for(i=0; i<MENU_SIZE; i++)
-		printf("%d) %s\n", i-1, options[i]);
+		printf("%2d) %s\n", i-1, options[i]);
 }
 
 int get_selection(){
-	int i;
+	int stn;
 	printf("What would you like to do (Enter 0 for menu): ");
-	scanf("%d", &i);
+	scanf("%d", &stn);
 	printf("\n");
-	return i;
+	return stn;
 }
 
 void execute_selection(int stn){
