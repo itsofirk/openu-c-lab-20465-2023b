@@ -7,11 +7,12 @@ int count_bits(unsigned long num);
 int main()
 {
 	unsigned long num;
+	int count;
 	printf("Hello! This program counts the number of active bits in even places.\n");
 	printf("Please Enter a binary number!: ");
 	num = read_binary();
-
-    printf("\nresult: %ld", num);
+    count = count_bits(num);
+    printf("\nresult: %d", count);
     return 0;
 }
 
@@ -31,10 +32,9 @@ unsigned long read_binary(){
 int count_bits(unsigned long num){
     int i, sum;
     sum = 0;
-    for(i = LONG_SIZE - 1; i >= 0; --i){
+    for(i = ULONG_SIZE; i >= 0; i-=2){
         if((num >> i) & 1)
             sum++;
-		num >> 1;
     }
     return sum;
 }
