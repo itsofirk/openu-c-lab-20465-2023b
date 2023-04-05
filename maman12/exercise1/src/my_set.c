@@ -1,60 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define INITIAL_SIZE 5
+#include <string.h>
+#include "consts.h"
+#define CAPACITY 5
 #define ENLARGE_SIZE 5
 
-int* get_set();
-void print_set(int* set);
 
-int main() {
-    int capacity = INITIAL_SIZE; // initial capacity of the array
-    int size = 0; // current size of the array
+int* get_set();
+void print_set(int arr[]);
+int arr_contains(int arr[], int size, int number);
+char* next_int(char *buff);
+
+int* get_set() {
+    int capacity = CAPACITY; /*  initial capacity of the array */
+    int size = 0; /*  current size of the array */
     int number;
     char buffer[256];
-    int *numbers = malloc(capacity * sizeof(int)); // allocate memory for the array
+    char *ptr;
+    int *numbers = malloc(capacity * sizeof(int)); /*  allocate memory for the array */
     
     printf("Enter integers separated by spaces or new lines.\n * Press enter twice to end input:\n");
     while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-        // check if the user pressed enter twice to end input
-        if (buffer[0] != '\n') {
-            char *ptr = buffer;
-            while (sscanf(ptr, "%d", &number)) {
-                // check if the number is already in the array
-                int found = 0;
-                for (int i = 0; i < size; i++) {
-                    if (numbers[i] == number) {
-                        found = 1;
-                        break;
-                    }
+        /*  check if the user pressed enter twice to end input */
+        if (buffer[0] == '\n')
+            return numbers;
+        ptr = buffer;
+        while (sscanf(ptr, "%d", &number) == 1) {
+            /*  if the number void print_set(int* set) print_set(int* set)void print_set(int* set)is not in the array, add it */
+            if (!arr_contains(numbers, size, number)) {
+                /*  expand the array if necessary */
+                if (size == capacity) {
+                    capacity += ENLARGE_SIZE;
+                    numbers = realloc(numbers, capacity * sizeof(int));
                 }
-                
-                // if the number is not in the array, add it
-                if (!found) {
-                    // expand the array if necessary
-                    if (size == capacity) {
-                        capacity *= 2;
-                        numbers = realloc(numbers, capacity * sizeof(int));
-                    }
-                    
-                    // add the number to the array
-                    numbers[size++] = number;
-                }
-                
-                // find the next integer in the input string
-                ptr += strspn(ptr, "0123456789");
-                ptr += strspn(ptr, " \t\n"); // skip whitespace
+                numbers[size++] = number;
             }
+            ptr = next_int(ptr);
         }
     }
-    
-    // print the unique integers in the order they were input
-    printf("Unique integers entered:\n");
-    for (int i = 0; i < size; i++) {
-        printf("%d\n", numbers[i]);
+    return numbers;
+}
+
+
+/*  check if arr contains a number */
+int arr_contains(int arr[], int size, int number){
+    int i;
+    for (i = 0; i < size; i++) {
+        if (arr[i] == number)
+            return TRUE;
     }
-    
-    // free the memory allocated for the array
-    free(numbers);
-    
-    return 0;
+    return FALSE;
+}
+
+
+/*  print an integers array */
+void print_set(int arr[]){
+    int i;
+    printf("Unique integers entered:\n");
+    if(arr[0])
+        printf("%d", arr[0]);
+    for (i = 1; arr[i]; i++) {
+        printf(", %d", arr[i]);
+    }
+    printf("\n");
+}
+
+/*  find the next integer in the input string */
+char* next_int(char *buff){
+    buff += strspn(buff, "0123456789");
+    buff += strspn(buff, " \t\n\0"); /*  skip whitespace */
+    return buff;
 }

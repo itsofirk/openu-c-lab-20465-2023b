@@ -1,11 +1,16 @@
 #include <stdio.h>
+#include "my_set.c"
 
 void print_hello();
 
-void main(){
+int main(){
+    int *set;
     print_hello();
-    get_set();
-    print_set();
+    set = get_set();
+    print_set(set);
+    free(set);
+
+    return 0;
 }
 
 void print_hello(){
