@@ -90,9 +90,9 @@ char *next_int(char *buff)
 int has_non_numeric_chars(char *buffer) {
     while (*buffer != '\0') {
         if (!isdigit(*buffer) && !isspace(*buffer)) {
-            return TRUE;  // non-numeric char found
+            return TRUE;  /* non-numeric char found */
         }
         buffer++;
     }
-    return FALSE;  // no non-numeric chars found
+    return FALSE;  /* no non-numeric chars found */
 }
